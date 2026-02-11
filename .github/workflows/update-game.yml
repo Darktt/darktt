@@ -1,0 +1,22 @@
+name: Update Space Shooter Game
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 每天 UTC 午夜執行
+  workflow_dispatch:  # 允許手動觸發
+
+permissions:
+  contents: write
+
+jobs:
+  update-game:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: czl9707/gh-space-shooter@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          output-path: 'game.gif'
+          strategy: 'random'  # 可選: column, row, random
+          fps: 40  # 可選: 調整動畫幀率
